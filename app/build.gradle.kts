@@ -57,4 +57,7 @@ dependencies {
     implementation(libs.retrofit)
     // Gson converter to parse JSON
     implementation(libs.converter.gson)
+
+    // Paging 3
+    implementation (libs.androidx.paging.runtime)
 }
