@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aman.paginationpract.model.Post
+import com.aman.paginationpract.model.PostItem
 import kotlinx.coroutines.launch
 
 class PostViewModel(private val postRepository: PostRepository):ViewModel() {
 
-    private val _posts = MutableLiveData<Post>()
-    private val posts:LiveData<Post> get() = _posts
+    private val _posts = MutableLiveData<List<PostItem>>()
+    val posts:LiveData<List<PostItem>> get() = _posts
 
     init {
         fetchPosts()

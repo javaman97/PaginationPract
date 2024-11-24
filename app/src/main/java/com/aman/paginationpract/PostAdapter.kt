@@ -5,15 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.aman.paginationpract.model.Post
 import com.aman.paginationpract.model.PostItem
 
-class PostAdapter(private val postList: List<PostItem>):RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(private var postList: List<PostItem>):RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     inner class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val title:TextView = itemView.findViewById(R.id.txtTitle)
         val body:TextView = itemView.findViewById(R.id.txtBody)
-
+        val userId:TextView = itemView.findViewById(R.id.userId)
+        val id:TextView = itemView.findViewById(R.id.txtId)
     }
 
     /**
@@ -79,5 +79,12 @@ class PostAdapter(private val postList: List<PostItem>):RecyclerView.Adapter<Pos
         val item = postList[position]
         holder.title.text = item.title
         holder.body.text = item.body
+        holder.userId.text = item.userId.toString()
+        holder.id.text = item.id.toString()
+    }
+
+    fun updatePostList(newPostList: List<PostItem>){
+        postList = newPostList
+        notifyDataSetChanged()
     }
 }
