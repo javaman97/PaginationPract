@@ -4,16 +4,75 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aman.paginationpract.model.PostItem
 
-class PostAdapter(private var postList: List<PostItem>):RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter:PagingDataAdapter<PostItem, PostAdapter.PostViewHolder>(PostDiffCallback()) {
 
     inner class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val title:TextView = itemView.findViewById(R.id.txtTitle)
         val body:TextView = itemView.findViewById(R.id.txtBody)
         val userId:TextView = itemView.findViewById(R.id.userId)
         val id:TextView = itemView.findViewById(R.id.txtId)
+    }
+
+    class PostDiffCallback : DiffUtil.ItemCallback<PostItem>() {
+        /**
+         * Called to check whether two objects represent the same item.
+         *
+         *
+         * For example, if your items have unique ids, this method should check their id equality.
+         *
+         *
+         * Note: `null` items in the list are assumed to be the same as another `null`
+         * item and are assumed to not be the same as a non-`null` item. This callback will
+         * not be invoked for either of those cases.
+         *
+         * @param oldItem The item in the old list.
+         * @param newItem The item in the new list.
+         * @return True if the two items represent the same object or false if they are different.
+         * @see Callback.areItemsTheSame
+         */
+        override fun areItemsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
+
+            return oldItem.id == newItem.id
+        }
+
+        /**
+         * Called to check whether two items have the same data.
+         *
+         *
+         * This information is used to detect if the contents of an item have changed.
+         *
+         *
+         * This method to check equality instead of [Object.equals] so that you can
+         * change its behavior depending on your UI.
+         *
+         *
+         * For example, if you are using DiffUtil with a
+         * [RecyclerView.Adapter], you should
+         * return whether the items' visual representations are the same.
+         *
+         *
+         * This method is called only if [.areItemsTheSame] returns `true` for
+         * these items.
+         *
+         *
+         * Note: Two `null` items are assumed to represent the same contents. This callback
+         * will not be invoked for this case.
+         *
+         * @param oldItem The item in the old list.
+         * @param newItem The item in the new list.
+         * @return True if the contents of the items are the same or false if they are different.
+         * @see Callback.areContentsTheSame
+         */
+        override fun areContentsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
+           return oldItem == newItem
+        }
+
     }
 
     /**
@@ -50,9 +109,9 @@ class PostAdapter(private var postList: List<PostItem>):RecyclerView.Adapter<Pos
      *
      * @return The total number of items in this adapter.
      */
-    override fun getItemCount(): Int {
-       return postList.size
-    }
+//    override fun getItemCount(): Int {
+//       return postList.size
+//    }
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -76,15 +135,17 @@ class PostAdapter(private var postList: List<PostItem>):RecyclerView.Adapter<Pos
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val item = postList[position]
-        holder.title.text = item.title
-        holder.body.text = item.body
-        holder.userId.text = item.userId.toString()
-        holder.id.text = item.id.toString()
+        val item = getItem(position)
+        item?.let {
+            holder.title.text = it.title
+            holder.body.text = it.body
+            holder.userId.text = it.userId.toString()
+            holder.id.text = it.id.toString()
+        }
     }
 
-    fun updatePostList(newPostList: List<PostItem>){
-        postList = newPostList
-        notifyDataSetChanged()
-    }
+//    fun updatePostList(newPostList: PagingData<PostItem>){
+//        postList = newPostList
+//        notifyDataSetChanged()
+//    }
 }

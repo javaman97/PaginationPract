@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aman.paginationpract.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private  lateinit var binding: ActivityMainBinding
@@ -24,10 +27,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        postAdapter = PostAdapter()
 
         binding.apply {
             rcVPost.layoutManager = LinearLayoutManager(this@MainActivity)
-            postAdapter = PostAdapter(emptyList())
+            postAdapter = PostAdapter()
             rcVPost.adapter = postAdapter
         }
 
@@ -35,9 +39,10 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = PostViewModelFactory(postRepository)
         postViewModel = ViewModelProvider(this,viewModelFactory)[PostViewModel::class.java]
 
-
-        postViewModel.posts.observe(this) { postList ->
-            postAdapter.updatePostList(postList)
+        lifecycleScope.launch {
+            postViewModel.pagingPosts.collectLatest { pagingData ->
+                postAdapter.submitData(pagingData)
+            }
         }
 
     }
