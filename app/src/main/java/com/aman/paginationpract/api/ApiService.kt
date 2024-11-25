@@ -1,4 +1,4 @@
-package com.aman.paginationpract
+package com.aman.paginationpract.api
 
 import com.aman.paginationpract.model.PostItem
 import retrofit2.http.GET

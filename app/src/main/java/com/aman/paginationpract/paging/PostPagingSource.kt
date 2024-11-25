@@ -1,10 +1,10 @@
-package com.aman.paginationpract
+package com.aman.paginationpract.paging
 
 import android.util.Log
-import androidx.paging.LoadState
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aman.paginationpract.model.PostItem
+import com.aman.paginationpract.repository.PostRepository
 
 class PostPagingSource(private val postRepository: PostRepository): PagingSource<Int, PostItem>() {
 

@@ -1,5 +1,6 @@
-package com.aman.paginationpract
+package com.aman.paginationpract.repository
 
+import com.aman.paginationpract.api.RetrofitInstance
 import com.aman.paginationpract.model.PostItem
 
 class PostRepository {

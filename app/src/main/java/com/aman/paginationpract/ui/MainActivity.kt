@@ -1,4 +1,4 @@
-package com.aman.paginationpract
+package com.aman.paginationpract.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +8,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aman.paginationpract.repository.PostRepository
+import com.aman.paginationpract.viewmodel.PostViewModel
+import com.aman.paginationpract.viewmodel.PostViewModelFactory
+import com.aman.paginationpract.R
 import com.aman.paginationpract.databinding.ActivityMainBinding
+import com.aman.paginationpract.paging.PostAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

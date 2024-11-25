@@ -1,4 +1,4 @@
-package com.aman.paginationpract
+package com.aman.paginationpract.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,6 +10,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.aman.paginationpract.model.PostItem
+import com.aman.paginationpract.paging.PostPagingSource
+import com.aman.paginationpract.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
